@@ -74,6 +74,44 @@
                     }
                 }
             }
+        },
+        "/api/employeeMaster/employeeMasterLogin": {
+            "post": {
+                "tags": [
+                    "employeeMaster,employeeMasterLogin"
+                ],
+                "summary": "employeeMaster",
+                "description": "",
+                "operationId": "employeeMasterLogin",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "username",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
         }
     },
     "components": {

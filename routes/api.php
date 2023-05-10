@@ -23,5 +23,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('employeeMaster')->group(function () {
     Route::controller(EmployeeMasterController::class)->group(function () {
         Route::post('employeeMasterStore', 'employeeMasterStore');
+        Route::post('employeeMasterLogin', 'employeeMasterLogin');
     });
 });

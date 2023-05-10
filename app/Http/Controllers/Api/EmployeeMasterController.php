@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\EmployeeMaster\LoginRequest;
 use App\Http\Requests\Api\EmployeeMaster\StoreRequest;
 use App\Models\EmployeeMaster;
 use Carbon\Carbon;
@@ -87,10 +88,68 @@ class EmployeeMasterController extends Controller
             if(!$empMaster->save())
             {
                 DB::rollBack();
-                return error(GENERAL_ERROR_MESSAGE, ERROR_500);
+                return error(GENERAL_ERROR_MESSAGE, ERROR_400);
             }
             DB::commit();
             return successWithData(GENERAL_SUCCESS_MESSAGE, $empMaster->fresh());
+
+        } catch (QueryException $e) {
+            DB::rollBack();
+            return error($e->getMessage(), ERROR_500);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return error($e->getMessage(), ERROR_500);
+        }
+    }
+    /**
+     * @OA\Post(
+     *      path="/api/employeeMaster/employeeMasterLogin",
+     *      operationId="employeeMasterLogin",
+     *      tags={"employeeMaster,employeeMasterLogin"},
+     *      summary="employeeMaster",
+     *      description="",
+    *      @OA\Parameter(
+    *          name="username",
+    *          description="username",
+    *          required=true,
+    *           in="query",
+    *          @OA\Schema(
+    *              type="string"
+    *          )
+    *      ),
+    *      @OA\Parameter(
+    *          name="password",
+    *          description="password",
+    *          required=true,
+    *           in="query",
+    *          @OA\Schema(
+    *              type="string"
+    *          )
+    *      ),
+    *      @OA\Response(
+    *          response=200,
+    *          description="Successful operation",
+    *       ),
+    *      @OA\Response(
+    *          response=403,
+    *          description="Forbidden"
+    *      )
+    *     )
+    */
+
+    public function employeeMasterLogin(LoginRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+            $inputs = $request->all();
+            $empMaster = $this->empMaster->newQuery()->whereEmail($inputs['username'])->wherePassword($inputs['password'])->first();
+            if(!$empMaster)
+            {
+                DB::rollBack();
+                return error("User ID/Password Wrong", SUCCESS_200);
+            }
+            DB::commit();
+            return successWithData("Logged in successfully", $empMaster->fresh());
 
         } catch (QueryException $e) {
             DB::rollBack();
