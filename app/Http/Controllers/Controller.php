@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
 /**
  * @OA\Info(
  *      version="1.0.0",
- *      title="Illuminae API Documentation",
+ *      title="AngularLiveProject API Documentation",
  *      description="",
  *      @OA\Contact(
  *          email="admin@admin.com"
@@ -26,7 +26,7 @@ use Illuminate\Routing\Controller as BaseController;
  *  ),
  *
  * @OA\Server(
- *      url="http://brain.test/",
+ *      url="http://angular_live_project_api.test/",
  *      description="Local API Server"
  * )
  * @OA\Server(
