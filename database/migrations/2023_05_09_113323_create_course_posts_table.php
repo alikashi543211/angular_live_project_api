@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('course_posts', function (Blueprint $table) {
             $table->id();
             $table->string("title")->nullable();
-            $table->string("short_desc")->nullable();
-            $table->string("full_desc")->nullable();
+            $table->text("short_desc")->nullable();
+            $table->text("full_desc")->nullable();
             $table->string("image")->nullable();
             $table->string("author")->nullable();
             $table->string("entered_date")->nullable();

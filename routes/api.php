@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Auth\ForgetController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\CoursePostController;
 use App\Http\Controllers\Api\EmployeeMasterController;
 use App\Http\Controllers\Api\User\ProfileController;
 use App\Http\Controllers\Api\Questinnaire\QuestionnaireController;
@@ -24,5 +25,14 @@ Route::prefix('employeeMaster')->group(function () {
     Route::controller(EmployeeMasterController::class)->group(function () {
         Route::post('employeeMasterStore', 'employeeMasterStore');
         Route::post('employeeMasterLogin', 'employeeMasterLogin');
+    });
+});
+Route::prefix('coursePost')->group(function () {
+    Route::controller(CoursePostController::class)->group(function () {
+        Route::post('coursePostListing', 'coursePostListing');
+        Route::post('coursePostDetail', 'coursePostDetail');
+        Route::post('coursePostStore', 'coursePostStore');
+        Route::post('coursePostUpdate', 'coursePostUpdate');
+        Route::post('coursePostDelete', 'coursePostDelete');
     });
 });
