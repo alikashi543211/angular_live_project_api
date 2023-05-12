@@ -45,7 +45,7 @@ class CoursePostController extends Controller
         try {
             DB::beginTransaction();
             $inputs = $request->all();
-            $coursePostListing = $this->coursePost->newQuery()->get();
+            $coursePostListing = $this->coursePost->newQuery()->orderBy('id', 'DESC')->get();
             DB::commit();
             return successWithData(GENERAL_FETCHED_MESSAGE, $coursePostListing);
 
@@ -350,6 +350,10 @@ class CoursePostController extends Controller
             DB::beginTransaction();
             $inputs = $request->all();
             $coursePost = $this->coursePost->newQuery()->whereId($inputs['course_post_id'])->first();
+            if($coursePost->getRawOriginal('image'))
+            {
+                $this->deleteFile($coursePost->getRawOriginal('image'));
+            }
             if(!$coursePost->delete())
             {
                 DB::rollBack();
