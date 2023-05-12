@@ -2,7 +2,6 @@
 /public/build
 /public/hot
 /public/user-photos
-/public/course-post-images
 /public/images
 /public/storage
 /storage/*.key
